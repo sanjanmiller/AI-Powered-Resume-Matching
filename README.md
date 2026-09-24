@@ -110,7 +110,6 @@ Answer
 * 🗄️ **ChromaDB**
 * 🔤 **Sentence Transformers**
 * 📄 **PyMuPDF**
-* 📊 **Pandas**
 * 🔧 **python-dotenv**
 
 ## 📁 Project Structure
@@ -151,7 +150,7 @@ Streamlit application responsible for:
 Clone the repository:
 
 ```bash
-git clone https://github.com/<YOUR_USERNAME>/AI-Powered-Resume-Matching.git
+git clone https://github.com/sanjanmiller/AI-Powered-Resume-Matching.git
 cd AI-Powered-Resume-Matching
 ```
 
