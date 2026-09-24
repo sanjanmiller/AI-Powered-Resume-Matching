@@ -13,7 +13,7 @@ This project demonstrates how **RAG, semantic search, vector databases, and LLMs
 
 It is a prototype of an AI-assisted recruitment workflow for **JD-based candidate discovery and candidate-specific Q&A**.
 
-## 🖼️ Screenshots
+## 🖼️ Demo Output
 
 ### 1. Upload a Job Description
 ![Upload JD](https://raw.githubusercontent.com/sanjanmiller/AI-Powered-Resume-Matching/refs/heads/main/outputs/1.JPG)
