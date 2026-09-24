@@ -1,213 +1,135 @@
 # 📄 AI-Powered Resume Matching
 
-An AI-powered recruiter assistant built with **Streamlit + RAG + Google Gemini** that matches candidate resumes against a Job Description (JD) and enables candidate-specific follow-up Q&A.
-
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B)
 ![Google Gemini](https://img.shields.io/badge/LLM-Google%20Gemini-4285F4)
 ![ChromaDB](https://img.shields.io/badge/Vector%20DB-ChromaDB-orange)
-![RAG](https://img.shields.io/badge/AI-RAG-green)
 
-## 🔍 Overview
+An AI-powered recruiter assistant built with **Streamlit, RAG, and Google Gemini** that matches candidate resumes against a Job Description (JD) and answers follow-up questions about individual candidates.
 
-The application uses **Retrieval-Augmented Generation (RAG)** to retrieve relevant resume evidence and provide grounded candidate analysis based on a Job Description.
+## 📌 Project Purpose
 
-```text
-Job Description PDF
-        ↓
-     Embedding
-        ↓
-  ChromaDB Retrieval
-        ↓
- Candidate Resume Evidence
-        ↓
-      🤖 Gemini
-        ↓
-   Top 3 Candidates
-        ↓
- Recruiter Follow-up Q&A
-        ↓
-Candidate-Specific Retrieval
-        ↓
-      🤖 Gemini
-        ↓
-      Answer
-```
+This project demonstrates how **RAG, semantic search, vector databases, and LLMs** can be combined to build an AI-powered resume matching workflow.
+
+It is a prototype of an AI-assisted recruitment workflow for **JD-based candidate discovery and candidate-specific Q&A**.
+
+## 🖼️ Screenshots
+
+### 1. Upload a Job Description
+![Upload JD](https://raw.githubusercontent.com/sanjanmiller/AI-Powered-Resume-Matching/refs/heads/main/outputs/1.JPG)
+
+### 2. Top 3 matching candidates
+![Top 3 candidates](https://raw.githubusercontent.com/sanjanmiller/AI-Powered-Resume-Matching/refs/heads/main/outputs/2.JPG)
+
+### 3. Candidate follow-up Q&A
+![Follow-up Q&A](https://raw.githubusercontent.com/sanjanmiller/AI-Powered-Resume-Matching/refs/heads/main/outputs/3.JPG)
 
 ## ✨ Features
 
-* 📄 Upload a Job Description PDF
-* 🔎 Retrieve relevant candidate resume evidence using semantic search
-* 🧠 RAG-based candidate matching
-* 🏆 Generate a Top 3 candidate list based on the JD
-* 💬 Ask follow-up questions about a specific candidate
-* 🎯 Perform candidate-specific retrieval for follow-up questions
-* 🤖 Google Gemini for candidate analysis and responses
-* 🔄 Hugging Face model as an LLM fallback
-* 🗄️ ChromaDB for vector storage
-* 🔤 `all-MiniLM-L6-v2` for embeddings
+- Upload a Job Description PDF
+- Get a ranked **Top 3 candidate list** grounded in resume evidence
+- Ask follow-up questions about a specific candidate
+- Automatic LLM fallback from Gemini to a Hugging Face model
 
-## 🧠 RAG Workflow
+## 🧠 How It Works
 
-### Resume Knowledge Base
+The app uses **Retrieval-Augmented Generation (RAG)**: instead of asking an LLM to judge resumes from memory, it retrieves the most relevant resume passages first and asks the LLM to reason only over that evidence.
 
-Candidate resumes are processed and indexed for semantic retrieval:
+### 1. Building the resume knowledge base
 
-```text
-Resume PDFs
-    ↓
-Text Extraction
-    ↓
-Chunking
-    ↓
-all-MiniLM-L6-v2
-    ↓
-Vector Embeddings
-    ↓
-ChromaDB
+```mermaid
+flowchart LR
+    A[Resume PDFs] --> B[Text Extraction]
+    B --> C[Chunking]
+    C --> D[Embeddings]
+    D --> E[(ChromaDB)]
 ```
 
-### Candidate Matching
+### 2. Matching candidates to a JD
 
-When a recruiter uploads a Job Description:
-
-```text
-Job Description
-       ↓
-   Embedding
-       ↓
-ChromaDB Retrieval
-       ↓
-Relevant Resume Evidence
-       ↓
-     Gemini
-       ↓
-Top 3 Candidates
+```mermaid
+flowchart LR
+    A[JD PDF] --> B[Embedding]
+    B --> C[ChromaDB Retrieval]
+    C --> D[Relevant Resume Evidence]
+    D --> E[Gemini]
+    E --> F[Top 3 Candidates]
 ```
 
-### Candidate Follow-up Q&A
+### 3. Candidate follow-up Q&A
 
-Recruiters can ask additional questions about a selected candidate:
-
-```text
-Recruiter Question
-       ↓
-Candidate-Specific Retrieval
-       ↓
-Relevant Resume Evidence
-       ↓
-     Gemini
-       ↓
-Answer
+```mermaid
+flowchart LR
+    A[Recruiter Question] --> B[Candidate-Specific Retrieval]
+    B --> C[Relevant Resume Evidence]
+    C --> D[Gemini]
+    D --> E[Answer]
 ```
 
 ## 🛠️ Tech Stack
 
-* 🐍 **Python**
-* 🎨 **Streamlit**
-* 🤖 **Google Gemini**
-* 🤗 **Hugging Face**
-* 🗄️ **ChromaDB**
-* 🔤 **Sentence Transformers**
-* 📄 **PyMuPDF**
-* 🔧 **python-dotenv**
-
-## 📁 Project Structure
-
-```text
-├── app.py
-├── resume_rag.ipynb
-├── requirements.txt
-├── README.md
-├── .gitignore
-└── .env.example
-```
-
-### `resume_rag.ipynb`
-
-Notebook used to build the resume knowledge base by:
-
-* Processing resume PDFs
-* Extracting resume text
-* Creating text chunks
-* Generating embeddings
-* Creating the ChromaDB knowledge base
-* Testing semantic retrieval
-
-### `app.py`
-
-Streamlit application responsible for:
-
-* Job Description PDF processing
-* Candidate retrieval
-* Gemini-based candidate matching
-* Top 3 candidate generation
-* Candidate-specific follow-up Q&A
-* Hugging Face fallback
+| Layer | Tools |
+|---|---|
+| UI | Streamlit |
+| LLM | Google Gemini, with Hugging Face fallback |
+| Vector store | ChromaDB |
+| Embeddings | Sentence Transformers (`all-MiniLM-L6-v2`) |
+| Document parsing | PyMuPDF |
+| Utilities | Pandas, python-dotenv |
 
 ## 🚀 Setup
 
-Clone the repository:
+### Prerequisites
+
+- Python `<version>` or later
+- A [Gemini API key](https://aistudio.google.com/app/apikey)
+- A [Hugging Face token](https://huggingface.co/settings/tokens)
+
+### Installation
 
 ```bash
-git clone https://github.com/sanjanmiller/AI-Powered-Resume-Matching.git
+git clone https://github.com/<YOUR_USERNAME>/AI-Powered-Resume-Matching.git
 cd AI-Powered-Resume-Matching
-```
 
-Create a virtual environment:
-
-```bash
 python -m venv venv
-```
+source venv/bin/activate      # macOS/Linux
+venv\Scripts\activate         # Windows
 
-Activate it on Windows:
-
-```cmd
-venv\Scripts\activate
-```
-
-Install dependencies:
-
-```bash
 pip install -r requirements.txt
 ```
 
-Create a `.env` file:
+### Configuration
+
+```bash
+cp .env.example .env          # Windows: copy .env.example .env
+```
+
+Then edit `.env`:
 
 ```env
 GEMINI_API_KEY=your-gemini-api-key
 HF_TOKEN=your-huggingface-token
 ```
 
-Run the notebook to create the Resume RAG knowledge base.
+### Run
 
-Then launch the Streamlit application:
+1. Place your resume PDFs in `resume_folder/`.
+2. Run `resume_rag.ipynb` to build the ChromaDB knowledge base.
+3. Launch the app:
 
 ```bash
 streamlit run app.py
 ```
 
-## 🔐 Security Note
+> **Security:** Never commit `.env` or real API keys. `.env`, `venv/`, `chroma_db/`, and `resume_folder/` are git-ignored so no candidate data is published.
 
-Never commit `.env` or actual API keys to GitHub.
-
-The following are intentionally excluded from version control:
+## 📁 Project Structure
 
 ```text
-.env
-venv/
-chroma_db/
-resume_folder/
-__pycache__/
-*.pyc
+├── app.py              # Streamlit app
+├── resume_rag.ipynb    # Builds the knowledge base
+├── requirements.txt
+├── .env.example
+├── docs/screenshots/   # README images
+└── README.md
 ```
-
-Resume PDFs are also excluded from the repository to avoid publishing candidate information.
-
-The `.env.example` file contains only placeholder credentials.
-
-## 📌 Project Purpose
-
-This project demonstrates how **RAG, semantic search, vector databases, and LLMs** can be combined to build an AI-powered resume matching workflow.
-
-It is a prototype demonstrating an AI-assisted recruitment workflow for **JD-based candidate discovery and candidate-specific Q&A**.
