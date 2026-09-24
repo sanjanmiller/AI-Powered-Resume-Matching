@@ -1,6 +1,6 @@
 # 📄 AI-Powered Resume Matching
 
-![Python](https://img.shields.io/badge/Python-3.x-blue)
+![Python](https://img.shields.io/badge/Python-3.11+-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B)
 ![Google Gemini](https://img.shields.io/badge/LLM-Google%20Gemini-4285F4)
 ![ChromaDB](https://img.shields.io/badge/Vector%20DB-ChromaDB-orange)
@@ -75,20 +75,20 @@ flowchart LR
 | Vector store | ChromaDB |
 | Embeddings | Sentence Transformers (`all-MiniLM-L6-v2`) |
 | Document parsing | PyMuPDF |
-| Utilities | Pandas, python-dotenv |
+| Utilities |python-dotenv |
 
 ## 🚀 Setup
 
 ### Prerequisites
 
-- Python `<version>` or later
+- Python 3.11 or later
 - A [Gemini API key](https://aistudio.google.com/app/apikey)
 - A [Hugging Face token](https://huggingface.co/settings/tokens)
 
 ### Installation
 
 ```bash
-git clone https://github.com/<YOUR_USERNAME>/AI-Powered-Resume-Matching.git
+git clone https://github.com/sanjanmiller/AI-Powered-Resume-Matching.git
 cd AI-Powered-Resume-Matching
 
 python -m venv venv
@@ -111,25 +111,24 @@ GEMINI_API_KEY=your-gemini-api-key
 HF_TOKEN=your-huggingface-token
 ```
 
+> **Security:** Never commit your `.env` file or real API keys to GitHub.
+
+
 ### Run
 
-1. Place your resume PDFs in `resume_folder/`.
-2. Run `resume_rag.ipynb` to build the ChromaDB knowledge base.
-3. Launch the app:
+Create a ChromaDB resume knowledge base from your own resume PDFs (`resume_rag.ipynb` can be used for this), then launch the app:
 
 ```bash
 streamlit run app.py
 ```
-
-> **Security:** Never commit `.env` or real API keys. `.env`, `venv/`, `chroma_db/`, and `resume_folder/` are git-ignored so no candidate data is published.
 
 ## 📁 Project Structure
 
 ```text
 ├── app.py              # Streamlit app
 ├── resume_rag.ipynb    # Builds the knowledge base
+├── outputs/            # App screenshots used in this README
 ├── requirements.txt
 ├── .env.example
-├── docs/screenshots/   # README images
 └── README.md
 ```
